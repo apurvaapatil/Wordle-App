@@ -1,0 +1,36 @@
+.keypad {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.keypad > div {
+    margin: 4px;
+    width: 60px;
+    height: 50px;
+    background: #828DA9;
+    display: inline-block;
+    border-radius: 10%;
+    line-height: 50px;
+}
+
+.letter:hover{
+    cursor: pointer;
+    background: #4a5264;
+    color: #fff;
+}
+
+.keypad > div.green {
+  background: #1AC370;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+.keypad > div.yellow {
+  background: #DAA104;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+.keypad > div.grey {
+  background: #303646;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}

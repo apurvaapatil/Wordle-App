@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Quattrocento:wght@700&display=swap');
+
+body {
+  text-align: center;
+  font-size: 1em;
+  font-family: verdana;
+  margin: 0;
+}
+p {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5em;
+  letter-spacing: 2px;
+  padding: 10px 0;
+  border-bottom: 1px solid #40495d95;
+  margin: 0 0 30px 0;
+  color: #FEFEFE;
+}

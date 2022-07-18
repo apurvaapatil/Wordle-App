@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+.row {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .row > div {
+    font-family: 'Ubuntu', sans-serif;
+    display: block;
+    width: 60px;
+    height: 60px;
+    border: 1.6px solid #7f8084;
+    border-radius: 10px;
+    margin: 4px;
+    text-align: center;
+    line-height: 60px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2.5em;
+    color: #C4C9D6;
+  }
+
+  /* "--" is used to turn that property i */
+  .row > div.green {
+    --background: #1AC370;
+    --border-color: #1AC370;
+    animation: flip 0.7s ease forwards;
+  }
+
+  .row > div.grey {
+    --background: #303646;
+    --border-color: #303646;
+    animation: flip 0.7s ease forwards;
+  }
+
+  .row > div.yellow {
+    --background: #DAA104;
+    --border-color: #DAA104;
+    animation: flip 0.7s ease forwards;
+  }
+
+  .row > div:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .row > div:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .row > div:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  .row > div:nth-child(5) {
+    animation-delay: 0.8s;
+  }
+
+  .row.current > div.filled {
+    animation: bounce 0.2s ease-in-out forwards;
+  }
+
+  .row.current > div.error {
+    /* color: red; */
+    outline: 0;
+    animation-name: error;
+    animation-duration: .5s;
+    /* animation-delay: 0.25s; */
+  }
+
+  /* animations */
+  @keyframes flip{
+    0% {
+        transform: rotateX(0);
+        background-color: #828DA9;
+        border-color: #333;
+    }
+
+    45% {
+        transform: rotateX(90deg);
+        background-color: #828DA9;
+        border-color: #333;
+    }
+
+    55% {
+        transform: rotateX(90deg);
+        background: var(--background);
+        border-color: var(--border-color);
+        color: #eee;
+    }
+
+    100% {
+        transform: rotateX(0);
+        background: var(--background);
+        border-color: var(--border-color);
+        color: rgb(238, 238, 238);
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+        transform: scale(1);
+        border-color: #ddd;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        border-color: #A3ABC0;
+    }
+  }
+
+  @keyframes error {
+    0% {
+      transform: translateX(0px);
+      timing-function: ease-in;
+    }
+    37% {
+      transform: translateX(5px);
+      timing-function: ease-out;
+    }
+    55% {
+      transform: translateX(-5px);
+      timing-function: ease-in;
+    }
+    73% {
+      transform: translateX(4px);
+      timing-function: ease-out;
+    }
+    82% {
+      transform: translateX(-4px);
+      timing-function: ease-in;
+    }
+    91% {
+      transform: translateX(2px);
+      timing-function: ease-out;
+    }
+    96% {
+      transform: translateX(-2px);
+      timing-function: ease-in;
+    }
+    100% {
+      transform: translateX(0px);
+      timing-function: ease-in;
+    }
+  }
