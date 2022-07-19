@@ -127,7 +127,7 @@ const useWordle = (solution) => {
                 if (currentGuess.length < 5) {
                     // console.log(key);
                     setCurrentGuess((prev) => prev + key);
-                    console.log("currentGuess: " + currentGuess);
+                    // console.log("currentGuess: " + currentGuess);
                 }
             }
         }
@@ -161,7 +161,7 @@ const useWordle = (solution) => {
         return true;
     }
     // console.log(usedKeys);
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isDictionaryWord }
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys }
 };
 
 export default useWordle;

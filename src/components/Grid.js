@@ -2,7 +2,7 @@ import React from 'react'
 import Row from './Row'
 import './grid.css'
 
-export default function Grid({ currentGuess, guesses, turn, isDictionaryWord }) {
+export default function Grid({ currentGuess, guesses, turn }) {
     // console.log(guesses);
     return (
         <div>
@@ -15,7 +15,7 @@ export default function Grid({ currentGuess, guesses, turn, isDictionaryWord }) 
                     }
 
                     // previous guesses
-                    return (<Row key={i} guess={guess} isDictionaryWord={isDictionaryWord}></Row>)
+                    return (<Row key={i} guess={guess} ></Row>)
                 })}
         </div>
     )

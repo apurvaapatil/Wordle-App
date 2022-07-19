@@ -6,7 +6,7 @@ const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 const options = {
     params: { wordLength: '5' },
     headers: {
-        'X-RapidAPI-Key': process.env.REACT_WORD_API_KEY,
+        'X-RapidAPI-Key': process.env.REACT_APP_WORD_API_KEY,
         'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
     }
 };
@@ -26,7 +26,7 @@ export const getIfValidWord = async (currentGuess) => {
         const response = await axios.get(dictionaryURL + currentGuess);
         return response;
     } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
         return error.response.status;
     }
 };

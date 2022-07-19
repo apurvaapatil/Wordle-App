@@ -58,7 +58,7 @@
     animation: bounce 0.2s ease-in-out forwards;
   }
 
-  .row.current > div.error {
+  .error {
     /* color: red; */
     outline: 0;
     animation-name: error;
