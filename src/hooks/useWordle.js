@@ -9,22 +9,38 @@ const useWordle = (solution) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});   // used for keypad => {a: 'green', b: 'grey'}
 
-    const [isDictionaryWord, setIsDictWord] = useState(false);
+    // const [isDictionaryWord, setIsDictWord] = useState(false);
     const [pressedEnter, setPressedEnter] = useState(false);
 
     useEffect(() => {
         // check if dictionary word
+        // if (validateGuess()) {
+        //     const formatted = formatGuess();
+        //     addNewGuess(formatted);
+        // }
+
         if (pressedEnter) {
             getIfValidWord(currentGuess).then((res) => {
+                let isDictionaryWord = false;
+
+                // console.log(res)
                 if (res !== 404) {
-                    setIsDictWord(true);
+                    // setIsDictWord(true);
+                    isDictionaryWord = true;
                 }
-                else {
-                    setIsDictWord(false);
+                // else {
+                //     setIsDictWord(false);
+                // }
+                // pass if dictionary word as parameter
+
+                // console.log("validateGuess(): " + validateGuess(isDictionaryWord))
+                if (validateGuess(isDictionaryWord)) {
+                    const formatted = formatGuess();
+                    addNewGuess(formatted);
                 }
             });
         }
-    }, [pressedEnter, isDictionaryWord]);
+    }, [pressedEnter]);
 
     // store the entered letter into array of objects: [{key: 'a', color: 'green'}]
     const formatGuess = () => {
@@ -43,10 +59,7 @@ const useWordle = (solution) => {
                 formattedGuess[i].color = 'yellow';
             }
         });
-
-        // console.log(formattedGuess);
         return formattedGuess;
-
     }
 
     // add the entered letter to state
@@ -72,12 +85,8 @@ const useWordle = (solution) => {
             return prev + 1;
         });
 
-        // console.log(guesses);
-        // console.log(turn);
-
         // for keypad
         setUsedKeys((prevUsedKeys) => {
-            // let newKeys = { ...prevUsedKeys };
             formattedWordDict.forEach((l) => {
                 const prevColor = prevUsedKeys[l.key];
 
@@ -96,7 +105,6 @@ const useWordle = (solution) => {
                     return;
                 }
             });
-            // console.log(newKeys);
             return prevUsedKeys;
         })
 
@@ -110,11 +118,8 @@ const useWordle = (solution) => {
 
         if (key === "Enter") {
             setPressedEnter(true);
-            if (validateGuess()) {
-                const formatted = formatGuess();
-                addNewGuess(formatted);
-            }
         }
+
         else {
             setPressedEnter(false);
             if (key === "Delete" || key === "Backspace" || key === "⌫") {  // Delete character
@@ -123,44 +128,22 @@ const useWordle = (solution) => {
             }
 
             else if (/^[a-zA-Z]$/.test(key)) {
-                // console.log(key);
                 if (currentGuess.length < 5) {
-                    // console.log(key);
                     setCurrentGuess((prev) => prev + key);
-                    // console.log("currentGuess: " + currentGuess);
                 }
             }
         }
     }
 
-    const validateGuess = () => {
+    const validateGuess = (isDictionaryWord) => {
         // word length should be 5            
-        if (currentGuess.length < 5) {
-            console.log("Word is too short!");
-            return false;
-        }
-
-        // do not allow duplicate words
-        if (history.includes(currentGuess)) {
-            console.log("You already tried that word!");
-            return false;
-        }
-
-        // add guess if turn < 6
-        if (turn > 5) {
-            console.log("You are out of turns!");
-            return false;
-        }
-
-        // check if valid word
-        if (!isDictionaryWord) {
-            console.log("not a valid word");
+        if (currentGuess.length < 5 || history.includes(currentGuess) || turn > 5 || !isDictionaryWord) {
+            console.log("Invalid Word!");
             return false;
         }
 
         return true;
     }
-    // console.log(usedKeys);
     return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys }
 };
 

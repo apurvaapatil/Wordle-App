@@ -3,7 +3,6 @@ import useWordle from '../hooks/useWordle';
 
 import './row.css';
 
-const { isDictionaryWord, pressedEnter } = useWordle
 export default function Row({ guess, currentGuess }) {
 
     // if guess is not undefined, i.e, this is the first turn

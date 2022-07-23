@@ -3,7 +3,6 @@ import Row from './Row'
 import './grid.css'
 
 export default function Grid({ currentGuess, guesses, turn }) {
-    // console.log(guesses);
     return (
         <div>
             {
