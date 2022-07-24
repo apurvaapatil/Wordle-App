@@ -58,14 +58,6 @@
     animation: bounce 0.2s ease-in-out forwards;
   }
 
-  .error {
-    /* color: red; */
-    outline: 0;
-    animation-name: error;
-    animation-duration: .5s;
-    /* animation-delay: 0.25s; */
-  }
-
   /* animations */
   @keyframes flip{
     0% {
@@ -108,40 +100,5 @@
     100% {
         transform: scale(1);
         border-color: #A3ABC0;
-    }
-  }
-
-  @keyframes error {
-    0% {
-      transform: translateX(0px);
-      timing-function: ease-in;
-    }
-    37% {
-      transform: translateX(5px);
-      timing-function: ease-out;
-    }
-    55% {
-      transform: translateX(-5px);
-      timing-function: ease-in;
-    }
-    73% {
-      transform: translateX(4px);
-      timing-function: ease-out;
-    }
-    82% {
-      transform: translateX(-4px);
-      timing-function: ease-in;
-    }
-    91% {
-      transform: translateX(2px);
-      timing-function: ease-out;
-    }
-    96% {
-      transform: translateX(-2px);
-      timing-function: ease-in;
-    }
-    100% {
-      transform: translateX(0px);
-      timing-function: ease-in;
     }
   }

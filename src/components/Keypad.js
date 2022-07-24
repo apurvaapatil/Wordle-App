@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import useWordle from '../hooks/useWordle';
 
 import './keypad.css';
 
