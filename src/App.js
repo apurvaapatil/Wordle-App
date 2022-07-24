@@ -27,7 +27,7 @@ const App = () => {
         <p>Wordle</p>
         {!isLoading && <div>
           {word && <Wordle solution={word} />}
-          <a href="">
+          <a href="https://github.com/apurvaapatil/Wordle-App">
             <FaGithub style={{ fontSize: '25px', background: 'transparent', }}></FaGithub>
           </a>
         </div>}
