@@ -1,0 +1,33 @@
+.error{
+    visibility: visible;
+    display:inline-block;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    font-size: 15px;
+    width: 300px;
+    border-radius: 2px;
+    animation: hideAnimation 1s ease-in-out 1s;
+    animation-fill-mode: forwards;
+    margin: 0px;
+}
+
+.no-error{
+    visibility: hidden;
+    margin: 0px;
+}
+
+.h3{
+    margin: 0px;
+}
+
+@keyframes hideAnimation {
+    0% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%;
+    }
+  }

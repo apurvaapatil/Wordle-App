@@ -9,37 +9,33 @@ const useWordle = (solution) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});   // used for keypad => {a: 'green', b: 'grey'}
 
-    // const [isDictionaryWord, setIsDictWord] = useState(false);
     const [pressedEnter, setPressedEnter] = useState(false);
 
-    useEffect(() => {
-        // check if dictionary word
-        // if (validateGuess()) {
-        //     const formatted = formatGuess();
-        //     addNewGuess(formatted);
-        // }
+    // for displaying incorrect word error
+    const [errorClassName, setErrorClassName] = useState('no-error');
 
+    useEffect(() => {
         if (pressedEnter) {
             getIfValidWord(currentGuess).then((res) => {
                 let isDictionaryWord = false;
 
-                // console.log(res)
                 if (res !== 404) {
-                    // setIsDictWord(true);
                     isDictionaryWord = true;
                 }
-                // else {
-                //     setIsDictWord(false);
-                // }
-                // pass if dictionary word as parameter
 
-                // console.log("validateGuess(): " + validateGuess(isDictionaryWord))
                 if (validateGuess(isDictionaryWord)) {
+                    setErrorClassName('no-error');
                     const formatted = formatGuess();
                     addNewGuess(formatted);
                 }
+                else {
+                    setErrorClassName('error');
+                }
             });
+            setPressedEnter(false);
         }
+        setErrorClassName('no-error');
+
     }, [pressedEnter]);
 
     // store the entered letter into array of objects: [{key: 'a', color: 'green'}]
@@ -121,7 +117,7 @@ const useWordle = (solution) => {
         }
 
         else {
-            setPressedEnter(false);
+            // setPressedEnter(false);
             if (key === "Delete" || key === "Backspace" || key === "⌫") {  // Delete character
                 setCurrentGuess((prev) => prev.slice(0, -1));
                 return;
@@ -138,13 +134,12 @@ const useWordle = (solution) => {
     const validateGuess = (isDictionaryWord) => {
         // word length should be 5            
         if (currentGuess.length < 5 || history.includes(currentGuess) || turn > 5 || !isDictionaryWord) {
-            console.log("Invalid Word!");
             return false;
         }
 
         return true;
     }
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys }
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, pressedEnter, errorClassName }
 };
 
 export default useWordle;

@@ -4,7 +4,7 @@ import './grid.css'
 
 export default function Grid({ currentGuess, guesses, turn }) {
     return (
-        <div>
+        <div className='grid'>
             {
                 // show current guess according to turn (turn row number)
                 guesses.map((guess, i) => {
@@ -12,7 +12,6 @@ export default function Grid({ currentGuess, guesses, turn }) {
                         return <Row key={i} currentGuess={currentGuess}></Row>
 
                     }
-
                     // previous guesses
                     return (<Row key={i} guess={guess} ></Row>)
                 })}

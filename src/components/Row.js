@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { RowContext } from '../context/context';
 import useWordle from '../hooks/useWordle';
 
 import './row.css';
 
 export default function Row({ guess, currentGuess }) {
+
+    const { pressedEnter, errorClassName } = useContext(RowContext);
 
     // if guess is not undefined, i.e, this is the first turn
     if (guess) {
@@ -23,7 +26,7 @@ export default function Row({ guess, currentGuess }) {
         let letters = [...currentGuess];
 
         return (
-            <div className={'row current '}>
+            <div className={'row current'}>
                 {
                     letters.map((l, i) => (
                         <div key={i} className={'filled '}>{l}</div>
@@ -37,10 +40,6 @@ export default function Row({ guess, currentGuess }) {
             </div>
         )
     }
-
-    // if (pressedEnter && !isDictionaryWord) {
-    //     // setErrorClassName('error');
-    // }
 
     return (
         <div className='row'>
