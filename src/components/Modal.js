@@ -3,19 +3,13 @@ import ModalContext from '../context/context';
 
 import './modal.css';
 
-export default function Modal({ isCorrect, turn, solution }) {
+export default function Modal({ isCorrect, solution }) {
 
     const { playAgain, setPlayAgain } = useContext(ModalContext);
-    // const [playAgain, setPlayAgain] = useState(false);
 
     const playAgainHandler = () => {
-        // console.log("play again")
         setPlayAgain(true);
     }
-
-    useEffect(() => {
-        console.log(playAgain);
-    }, [playAgain])
 
     return (
         <div className='modal'>

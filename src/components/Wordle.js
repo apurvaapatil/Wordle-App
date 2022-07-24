@@ -3,9 +3,12 @@ import useWordle from '../hooks/useWordle'
 import Grid from './Grid';
 import Keypad from './Keypad';
 import Modal from './Modal';
+import { RowContext } from '../context/context'
+
+import './wordle.css';
 
 export default function Wordle({ solution }) {
-    const { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys } = useWordle(solution);
+    const { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, pressedEnter, errorClassName } = useWordle(solution);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -34,10 +37,13 @@ export default function Wordle({ solution }) {
     }, [handleKeyup, isCorrect, turn]);
 
     return (
-        <div>
-            <Grid currentGuess={currentGuess} guesses={guesses} turn={turn}></Grid>
-            <Keypad usedKeys={usedKeys}></Keypad>
-            {showModal && <Modal isCorrect={isCorrect} turn={turn} solution={solution}></Modal>}
-        </div>
+        <RowContext.Provider value={{ pressedEnter, isCorrect, errorClassName }}>
+            <div>
+                <h3 className={errorClassName}>Incorrect Word</h3>
+                <Grid currentGuess={currentGuess} guesses={guesses} turn={turn}></Grid>
+                <Keypad usedKeys={usedKeys}></Keypad>
+                {showModal && <Modal isCorrect={isCorrect} solution={solution}></Modal>}
+            </div>
+        </RowContext.Provider>
     )
 }

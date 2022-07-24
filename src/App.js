@@ -12,16 +12,13 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setPlayAgain(false);
     setIsLoading(true);
 
     getWord().then(({ data: word }) => {
       setWord(word);
       setIsLoading(false);
     });
-  }, []);
-
-  useEffect(() => {
-    console.log(playAgain);
   }, [playAgain]);
 
   return (
@@ -40,8 +37,6 @@ const App = () => {
             <div class="double-bounce1"></div>
             <div class="double-bounce2"></div>
           </div>}
-
-
       </div>
     </ModalContext.Provider>
   );

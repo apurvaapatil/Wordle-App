@@ -9,22 +9,34 @@ const useWordle = (solution) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});   // used for keypad => {a: 'green', b: 'grey'}
 
-    const [isDictionaryWord, setIsDictWord] = useState(false);
     const [pressedEnter, setPressedEnter] = useState(false);
 
+    // for displaying incorrect word error
+    const [errorClassName, setErrorClassName] = useState('no-error');
+
     useEffect(() => {
-        // check if dictionary word
         if (pressedEnter) {
             getIfValidWord(currentGuess).then((res) => {
+                let isDictionaryWord = false;
+
                 if (res !== 404) {
-                    setIsDictWord(true);
+                    isDictionaryWord = true;
+                }
+
+                if (validateGuess(isDictionaryWord)) {
+                    setErrorClassName('no-error');
+                    const formatted = formatGuess();
+                    addNewGuess(formatted);
                 }
                 else {
-                    setIsDictWord(false);
+                    setErrorClassName('error');
                 }
             });
+            setPressedEnter(false);
         }
-    }, [pressedEnter, isDictionaryWord]);
+        setErrorClassName('no-error');
+
+    }, [pressedEnter]);
 
     // store the entered letter into array of objects: [{key: 'a', color: 'green'}]
     const formatGuess = () => {
@@ -43,10 +55,7 @@ const useWordle = (solution) => {
                 formattedGuess[i].color = 'yellow';
             }
         });
-
-        // console.log(formattedGuess);
         return formattedGuess;
-
     }
 
     // add the entered letter to state
@@ -72,12 +81,8 @@ const useWordle = (solution) => {
             return prev + 1;
         });
 
-        // console.log(guesses);
-        // console.log(turn);
-
         // for keypad
         setUsedKeys((prevUsedKeys) => {
-            // let newKeys = { ...prevUsedKeys };
             formattedWordDict.forEach((l) => {
                 const prevColor = prevUsedKeys[l.key];
 
@@ -96,7 +101,6 @@ const useWordle = (solution) => {
                     return;
                 }
             });
-            // console.log(newKeys);
             return prevUsedKeys;
         })
 
@@ -110,58 +114,32 @@ const useWordle = (solution) => {
 
         if (key === "Enter") {
             setPressedEnter(true);
-            if (validateGuess()) {
-                const formatted = formatGuess();
-                addNewGuess(formatted);
-            }
         }
+
         else {
-            setPressedEnter(false);
+            // setPressedEnter(false);
             if (key === "Delete" || key === "Backspace" || key === "⌫") {  // Delete character
                 setCurrentGuess((prev) => prev.slice(0, -1));
                 return;
             }
 
             else if (/^[a-zA-Z]$/.test(key)) {
-                // console.log(key);
                 if (currentGuess.length < 5) {
-                    // console.log(key);
                     setCurrentGuess((prev) => prev + key);
-                    // console.log("currentGuess: " + currentGuess);
                 }
             }
         }
     }
 
-    const validateGuess = () => {
+    const validateGuess = (isDictionaryWord) => {
         // word length should be 5            
-        if (currentGuess.length < 5) {
-            console.log("Word is too short!");
-            return false;
-        }
-
-        // do not allow duplicate words
-        if (history.includes(currentGuess)) {
-            console.log("You already tried that word!");
-            return false;
-        }
-
-        // add guess if turn < 6
-        if (turn > 5) {
-            console.log("You are out of turns!");
-            return false;
-        }
-
-        // check if valid word
-        if (!isDictionaryWord) {
-            console.log("not a valid word");
+        if (currentGuess.length < 5 || history.includes(currentGuess) || turn > 5 || !isDictionaryWord) {
             return false;
         }
 
         return true;
     }
-    // console.log(usedKeys);
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys }
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, pressedEnter, errorClassName }
 };
 
 export default useWordle;

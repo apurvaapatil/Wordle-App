@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const URL = "https://random-words5.p.rapidapi.com/getRandom";
-const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+
+const wordnikURL = "https://api.wordnik.com/v4/word.json/";
 
 const options = {
     params: { wordLength: '5' },
@@ -10,7 +11,6 @@ const options = {
         'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
     }
 };
-
 
 export const getWord = async () => {
     try {
@@ -23,10 +23,9 @@ export const getWord = async () => {
 
 export const getIfValidWord = async (currentGuess) => {
     try {
-        const response = await axios.get(dictionaryURL + currentGuess);
+        const response = await axios.get(wordnikURL + currentGuess + "/scrabbleScore?api_key=" + process.env.REACT_APP_WORDNIK_API_KEY);
         return response;
     } catch (error) {
-        // console.log(error.message);
         return error.response.status;
     }
 };
