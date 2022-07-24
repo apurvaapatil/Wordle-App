@@ -1,3 +1,10 @@
+# Wordle Clone
+
+Deployed on Netlify: [https://wordle-app-clone.netlify.app/)
+
+![image](https://user-images.githubusercontent.com/58740201/180647290-2f122e21-bb0b-4797-b932-3ffa47b7521c.png)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
